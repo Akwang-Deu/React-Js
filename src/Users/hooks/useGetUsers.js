@@ -1,33 +1,33 @@
 import { getUsers } from "../util";
 import { useState, useEffect } from "react";
 
-export const useGetUsers =() =>{
-    const [users,setUsers]=useState();
+export function useGetUsers(){
+    const [users,setUsers] = useState([]);
     const [error, setError]= useState('');
-    const [loading,setLoading]=useState(false);
+    const [loading,setLoading] = useState(false);
 
-    useEffect(()=>{
+    useEffect(()=> { 
         async function fetchUsers(){
             try{
-                setLoading(true);
+                    setLoading(true);
                     const users = await getUsers();
-                    console.log(users)
-                    setUsers(users.users)
-                    setLoading(false)
+                    console.log({users})
+                    setUsers(users.users);
+                    setLoading(false);
 
                 }
                 catch(error){
                     setError(error.message);
-                    setLoading(false)
+                    setLoading(false);
     
                 }
-            };
-        fetchUsers();
+            }
+            fetchUsers();
 
-    },[])
+    },[]);
     return{
         users,
         loading,
-        error,
+        error
     }
 };
